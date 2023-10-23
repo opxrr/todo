@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/ui/compnents/custome_form_field.dart';
 import 'package:todo/ui/dialog_utils.dart';
+import 'package:todo/ui/login/login_screen.dart';
 import 'package:todo/validation_utils.dart';
 //DFECDB
 class RegisterScreen extends StatefulWidget {
@@ -119,6 +120,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                          color: Colors.white
                        ),)
                   ),
+                  TextButton(onPressed: (){
+                    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                  }, child: Text("Already  Have Account ?"))
                 ],
               ),
             ),
@@ -141,7 +145,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
      var result = await authServices.createUserWithEmailAndPassword(email: mailController.text,
           password: passwordController.text);
      DialogUtils.hideDialog(context);
-     DialogUtils.showMeassage(context, 'Successful registration ');
+     DialogUtils.showMessage(context, 'Successful registration '
+     '${result.user?.uid}');
     }
     on FirebaseAuthException catch (e) {
       DialogUtils.hideDialog(context);
@@ -151,11 +156,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (e.code == 'email-already-in-use') {
         errorMessage = 'The account already exists for that email.';
       }
-      DialogUtils.showMeassage(context, errorMessage);
+      DialogUtils.showMessage(context, errorMessage,
+      postActionName: 'Ok');
     } catch (e) {
       DialogUtils.hideDialog(context);
       String errorMessage ='Something went wrong';
-      DialogUtils.showMeassage(context, errorMessage);
+      DialogUtils.showMessage(context, errorMessage,
+      postActionName: 'Cancel',
+      negActionName: 'Try Again',
+      negAction: (){
+        Register();
+      });
     }
 
   }
