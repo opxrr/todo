@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/ui/login/login_screen.dart';
 import 'package:todo/ui/register/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
 
       routes: {
         RegisterScreen.routeName : (_) => RegisterScreen(),
+        LoginScreen.routeName : (_) => LoginScreen(),
       },
       initialRoute: RegisterScreen.routeName,
     );

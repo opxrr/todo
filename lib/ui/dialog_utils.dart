@@ -21,10 +21,25 @@ class DialogUtils {
   static void hideDialog (BuildContext context){
     Navigator.pop(context);
   }
-  static void showMeassage (BuildContext context,String message,
-  {String? postActionName, String? negActionName}){
+  static void showMessage (BuildContext context,
+      String message, {String? postActionName,
+    VoidCallback? postAction ,
+    String? negActionName,
+    VoidCallback? negAction,}){
     List<Widget>actions=[];
     if(postActionName!=null){
+     actions.add(TextButton(onPressed: (){
+       Navigator.pop(context);
+       postAction?.call();
+     },
+         child: Text(postActionName)));
+    }
+    if(negActionName!=null){
+      actions.add(TextButton(onPressed: (){
+        Navigator.pop(context);
+        negAction?.call();
+      },
+          child: Text(negActionName)));
     }
     showDialog(context: context,
         builder: (buildContext){
@@ -34,6 +49,5 @@ class DialogUtils {
           );
         }
     );
-
   }
 }
