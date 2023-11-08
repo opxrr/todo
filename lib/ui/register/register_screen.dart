@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/database/model/User.dart' as MyUser;
+import 'package:todo/database/model/my_database.dart';
+import 'package:todo/ui/Home/home_screen.dart';
 import 'package:todo/ui/compnents/custome_form_field.dart';
 import 'package:todo/ui/dialog_utils.dart';
 import 'package:todo/ui/login/login_screen.dart';
@@ -38,6 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
 
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: const Text('Register'),
 
@@ -144,9 +148,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
      var result = await authServices.createUserWithEmailAndPassword(email: mailController.text,
           password: passwordController.text);
+
+
+     var myUser = MyUser.User(
+       id: result.user?.uid,
+       name: nameController.text,
+       email: mailController.text,
+     );
+     await MyDatabase.addUser(myUser);
      DialogUtils.hideDialog(context);
-     DialogUtils.showMessage(context, 'Successful registration '
-     '${result.user?.uid}');
+     DialogUtils.showMessage(context, 'User registed successfully',
+       postActionName: 'Ok',
+       postAction: (){
+       Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+       },
+       dismissible:false,
+     );
     }
     on FirebaseAuthException catch (e) {
       DialogUtils.hideDialog(context);
