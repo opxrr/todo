@@ -25,7 +25,9 @@ class DialogUtils {
       String message, {String? postActionName,
     VoidCallback? postAction ,
     String? negActionName,
-    VoidCallback? negAction,}){
+    VoidCallback? negAction,
+      bool dismissible = true
+      }){
     List<Widget>actions=[];
     if(postActionName!=null){
      actions.add(TextButton(onPressed: (){
@@ -47,7 +49,8 @@ class DialogUtils {
             content: Text(message),
             actions: actions,
           );
-        }
+        },
+        barrierDismissible: dismissible
     );
   }
 }

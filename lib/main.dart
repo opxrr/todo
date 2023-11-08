@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/ui/Home/home_screen.dart';
 import 'package:todo/ui/login/login_screen.dart';
 import 'package:todo/ui/register/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,18 +22,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
           ),
         ),
+
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
         ),
-        scaffoldBackgroundColor: Colors.transparent,
+
+        scaffoldBackgroundColor: Color(0xFFDFECDB),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
@@ -40,7 +42,9 @@ class MyApp extends StatelessWidget {
       routes: {
         RegisterScreen.routeName : (_) => RegisterScreen(),
         LoginScreen.routeName : (_) => LoginScreen(),
+        HomeScreen.routeName : (_) => HomeScreen(),
       },
+
       initialRoute: RegisterScreen.routeName,
     );
   }
