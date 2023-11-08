@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/database/model/my_database.dart';
 import 'package:todo/ui/register/register_screen.dart';
-
 import '../../validation_utils.dart';
+import '../Home/home_screen.dart';
 import '../compnents/custome_form_field.dart';
 import '../dialog_utils.dart';
 
@@ -33,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
 
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: const Text('Login'),
 
@@ -115,9 +117,21 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       var result = await authServices.signInWithEmailAndPassword(email: mailController.text,
           password: passwordController.text);
+      var user = await MyDatabase.readUser(result.user?.uid ?? "");
       DialogUtils.hideDialog(context);
-      DialogUtils.showMessage(context, 'Successful login '
-          '${result.user?.uid}');
+      if(user==null){
+        // user authenticated but not exist in the data base
+        DialogUtils.showMessage(context, "error. user is not found in database ",
+            postActionName: 'Ok');
+        return;
+      }
+      DialogUtils.showMessage(context, 'Successfull login',
+        postActionName: 'Ok',
+        postAction: (){
+          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        },
+        dismissible:false,
+      );
     }
     on FirebaseAuthException catch (e) {
       DialogUtils.hideDialog(context);
