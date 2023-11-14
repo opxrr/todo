@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/database/model/my_database.dart';
 import 'package:todo/ui/register/register_screen.dart';
-import '../../validation_utils.dart';
+import '../../database/validation_utils.dart';
 import '../Home/home_screen.dart';
 import '../compnents/custome_form_field.dart';
 import '../dialog_utils.dart';

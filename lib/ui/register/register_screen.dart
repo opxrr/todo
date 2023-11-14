@@ -8,7 +8,7 @@ import 'package:todo/ui/Home/home_screen.dart';
 import 'package:todo/ui/compnents/custome_form_field.dart';
 import 'package:todo/ui/dialog_utils.dart';
 import 'package:todo/ui/login/login_screen.dart';
-import 'package:todo/validation_utils.dart';
+import 'package:todo/database/validation_utils.dart';
 //DFECDB
 class RegisterScreen extends StatefulWidget {
 

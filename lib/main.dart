@@ -3,7 +3,7 @@ import 'package:todo/ui/Home/home_screen.dart';
 import 'package:todo/ui/login/login_screen.dart';
 import 'package:todo/ui/register/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'database/firebase_options.dart';
 
 void main() async{
    WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +22,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent,
+          elevation: 0
+
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
@@ -32,6 +37,13 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
+        ),
+        textTheme: TextTheme(
+          headlineMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.black
+          )
         ),
 
         scaffoldBackgroundColor: Color(0xFFDFECDB),
